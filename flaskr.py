@@ -6,7 +6,6 @@ from data import users
 from data import db_session
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
-# создаём наше маленькое приложение :)
 app = Flask(__name__)
 app.config.from_object(__name__)
 db_session.global_init("db/news.sqlite")
@@ -16,8 +15,6 @@ app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'flaskr.db'),
     DEBUG=True,
     SECRET_KEY='development key',
-    #USERNAME='admin',
-    #PASSWORD='default'
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
@@ -46,22 +43,20 @@ def regi():
 
 
 def connect_db():
-    """Соединяет с указанной базой данных."""
+    #Соединяет с указанной базой данных.
     rv = sqlite3.connect(app.config['DATABASE'])
     rv.row_factory = sqlite3.Row
     return rv
 
 def get_db():
-    """Если ещё нет соединения с базой данных, открыть новое - для
-    текущего контекста приложения
-    """
+    #Если ещё нет соединения с базой данных, открыть новое - для текущего контекста приложения
     if not hasattr(g, 'sqlite_db'):
         g.sqlite_db = connect_db()
     return g.sqlite_db
 
 @app.teardown_appcontext
 def close_db(error):
-    """Closes the database again at the end of the request."""
+    #Closes the database again at the end of the request.
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
@@ -97,21 +92,10 @@ def login():
     if request.method == 'POST':
         if sessio.query(users.User).filter(users.User.username == request.form['username']).first():
                     if sessio.query(users.User).filter(users.User.password == request.form['password']).first():
-                        #user_me = session.query(users.User).filter_by(
-                        #    login=request.form['username']).first()
                         session['logged_in'] = True
                         flash('You were logged in') 
                         return redirect(url_for('show_entries'))
     return render_template('login.html', error=error)
-#        if request.form['username'] != app.config['USERNAME']:
-#            error = 'Invalid username'
- #       elif request.form['password'] != app.config['PASSWORD']:
-#            error = 'Invalid password'
-#        else:
-#            session['logged_in'] = True
-#            flash('You were logged in')
-#            return redirect(url_for('show_entries'))
-#    return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():

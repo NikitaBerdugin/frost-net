@@ -1,18 +1,26 @@
 <!doctype html>
-<title>Flaskr</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<title>Frost Net</title>
+<link rel='stylesheet' type=text/css href="static/css/style.css">
 <div class=page>
-  <h1>Flaskr</h1>
+  <h1>Frost Net</h1>
   <div class=metanav>
     {% if not session.logged_in %}
-    <a href="{{ url_for('regi') }}">regist</a>
-    <a href="{{ url_for('login') }}">log in</a>
-  {% else %}
-    <a href="{{ url_for('logout') }}">log out</a>
-  {% endif %}
+    <a href="{{ url_for('regi') }}">регистрация</a>
+    <a href="{{ url_for('login') }}">вход</a>
+    
+    {% else %}
+    <img src="/static/img/smal.jpg" alt="Avatar" class="avatar">
+    <a href="{{ url_for('logout') }}">выход</a>
+    {% endif %}
   </div>
   {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
+  <div class=flash>{{ message }}</div>
   {% endfor %}
   {% block body %}{% endblock %}
 </div>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+crossorigin="anonymous">

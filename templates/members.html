@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% for item in profile['profile'] %}
+        <h2>{{item["name"]}}</h2>
+        <h2>{{item["surname"]}}</h2>
+        <h2>{{item["[photo]"]}}</h2>
+        <h2>{{item["list speciality"]}}</h2>
+    {% endfor %}
+</body>
+</html>

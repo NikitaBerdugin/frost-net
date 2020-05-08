@@ -10,7 +10,7 @@ class User(SqlAlchemyBase):
         sqlalchemy.Integer, primary_key=True, autoincrement=True)
     username = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(
-        sqlalchemy.String, index=True, nullable=True)
+        sqlalchemy.String, index=True, unique = True, nullable=True)
     password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     #news = orm.relation("News", back_populates='user')
     def set_password(self, password):
